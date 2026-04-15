@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: orders-service
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/walabelhi/micro-app
+    targetRevision: main
+    path: orders/k8s
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: orders
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
